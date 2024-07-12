@@ -1,6 +1,6 @@
 // src/App.js
 import React from "react";
-import Counter from "./components/Counter";
+import PlayerController from "./components/PlayerController";
 import "./styles/App.css";
 import MapBase from "./components/MapBase";
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <MapBase />
-      <Counter />
+      <PlayerController />
     </div>
   );
 }

@@ -44,29 +44,3 @@
   color: #888;
 }
 
-.controls {
-  display: grid;
-  grid-template-areas:
-    ". up ."
-    "left . right"
-    ". down .";
-  gap: 5px;
-  justify-items: center;
-  align-items: center;
-}
-
-.button.up {
-  grid-area: up;
-}
-
-.button.left {
-  grid-area: left;
-}
-
-.button.down {
-  grid-area: down;
-}
-
-.button.right {
-  grid-area: right;
-}

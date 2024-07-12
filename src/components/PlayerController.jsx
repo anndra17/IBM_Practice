@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import "./../styles/PlayerController.css";
 
-const Counter = ({ x, y, incrementX, decrementX, incrementY, decrementY }) => {
+const PlayerController = ({ x, y, incrementX, decrementX, incrementY, decrementY }) => {
   console.log(x, y);
   return (
     <div>
@@ -36,4 +37,4 @@ const mapDispatchToProps = (dispatch) => ({
   decrementY: () => dispatch({ type: "DOWN" })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerController);

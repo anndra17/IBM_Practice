@@ -3,7 +3,7 @@ const initialState = {
   y: 0
 };
 
-const counterReducer = (state = initialState, action) => {
+const playerControllerReducer = (state = initialState, action) => {
   switch (action.type) {
     case "DOWN":
       return { ...state, y: Math.max(state.y - 1, 0) };
@@ -18,4 +18,4 @@ const counterReducer = (state = initialState, action) => {
   }
 };
 
-export default counterReducer;
+export default playerControllerReducer;

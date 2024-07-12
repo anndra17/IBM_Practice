@@ -1,0 +1,29 @@
+.button.up {
+    grid-area: up;
+  }
+  
+  .button.left {
+    grid-area: left;
+  }
+  
+  .button.down {
+    grid-area: down;
+  }
+  
+  .button.right {
+    grid-area: right;
+  }
+
+  .controls {
+    width: 200px; 
+    margin-left: auto;
+    margin-right: auto;
+    gap: 5px;
+    display: grid;
+    grid-template-areas:
+    ". up ."
+    "left . right"
+    ". down .";
+  }
+
+  
