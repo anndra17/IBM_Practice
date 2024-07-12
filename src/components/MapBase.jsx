@@ -1,4 +1,4 @@
-// src/components/MapBase.js
+// src/components/MapBase.js 
 import React from "react";
 import { connect } from "react-redux";
 import "./../styles/MapBase.css"; // Adjust the path as needed
@@ -9,10 +9,9 @@ const MapBase = ({ x, y }) => {
     for (let row = 0; row < 10; row++) {
       const cells = [];
       for (let col = 0; col < 10; col++) {
-        const className = (col === 4 && row === 4) ? "red-cell" : "map-cell";
+        const className = (col === x && row === y) ? "red-cell" : "map-cell";
         cells.push(
           <td key={col} className={className}>
-            {x === col && y === row ? "P" : ""}
           </td>
         );
       }

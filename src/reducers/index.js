@@ -1,6 +1,7 @@
+// src/reducers/index.js  => responsible for updating the state based on the action’s type and payload
 const initialState = {
-  x: 0,
-  y: 0
+  x: 4,
+  y: 4
 };
 
 const playerControllerReducer = (state = initialState, action) => {
