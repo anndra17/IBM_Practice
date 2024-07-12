@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import "./../styles/PlayerController.css";
 
 const PlayerController = ({ x, y, incrementX, decrementX, incrementY, decrementY }) => {
-  console.log(x, y);
   return (
     <div>
       <p className="counter_title">Player position: X={x} Y={y}</p>
