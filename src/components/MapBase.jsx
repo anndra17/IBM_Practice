@@ -2,6 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./../styles/MapBase.css"; // Adjust the path as needed
+import marginImage from "./../assets/marginImage.jpeg"; // Adjust the path as needed
 
 const MapBase = ({ x, y }) => {
 
@@ -13,8 +14,8 @@ const MapBase = ({ x, y }) => {
         const isBorderCell = row === 0 || row === 9 || col === 0 || col === 9;
         const className = (col === x && row === y) ? "red-cell" : "map-cell";
         cells.push(
-          <td key={col === 0} className={className}  
-          style={isBorderCell ? { backgroundColor: "blue" } : {}}
+          <td key={`${row}-${col}`} className={className}  
+          style={isBorderCell ? { backgroundImage: `url(${marginImage})`, backgroundSize: 'cover' } : {}}
           ></td>
         );
       }
