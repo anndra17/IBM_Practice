@@ -13,7 +13,9 @@ const MapBase = ({ x, y }) => {
         const isBorderCell = row === 0 || row === 9 || col === 0 || col === 9;
         const className = (col === x && row === y) ? "red-cell" : "map-cell";
         cells.push(
-          <td key={col} className={className}></td>
+          <td key={col === 0} className={className}  
+          style={isBorderCell ? { backgroundColor: "blue" } : {}}
+          ></td>
         );
       }
       table.push(<tr key={row}>{cells}</tr>);
