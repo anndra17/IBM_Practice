@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "./../styles/MapBase.css"; // Adjust the path as needed
 import marginImage from "./../assets/marginImage.jpeg"; // Adjust the path as needed
 
-const MapBase = ({ x, y }) => {
+const MapBase = ({ x, y, updateRedDotPosition }) => {
   // State for the yellow dot's position
   const [yellowDot, setYellowDot] = useState({ x: 1, y: 1 });
 
@@ -35,6 +35,33 @@ const MapBase = ({ x, y }) => {
     const interval = setInterval(moveYellowDot, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  // Function to handle key presses and move the red dot
+  const handleKeyPress = (event) => {
+    const { key } = event;
+    let newX = x;
+    let newY = y;
+
+    if (key === "ArrowUp") {
+      newY = y > 1 ? y - 1 : y;
+    } else if (key === "ArrowDown") {
+      newY = y < 8 ? y + 1 : y;
+    } else if (key === "ArrowLeft") {
+      newX = x > 1 ? x - 1 : x;
+    } else if (key === "ArrowRight") {
+      newX = x < 8 ? x + 1 : x;
+    }
+
+    updateRedDotPosition(newX, newY);
+  };
+
+  // Add event listener for key presses
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyPress);
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [x, y]);
 
   const renderTable = () => {
     const table = [];
@@ -78,4 +105,8 @@ const mapStateToProps = (state) => ({
   y: state.y,
 });
 
-export default connect(mapStateToProps)(MapBase);
+const mapDispatchToProps = (dispatch) => ({
+  updateRedDotPosition: (x, y) => dispatch({ type: 'UPDATE_RED_DOT_POSITION', payload: { x, y } }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapBase);

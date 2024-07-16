@@ -1,22 +1,19 @@
-// src/reducers/index.js  => responsible for updating the state based on the action’s type and payload
 const initialState = {
-  x: 4,
-  y: 4
+  x: 1,
+  y: 1,
 };
 
-const playerControllerReducer = (state = initialState, action) => {
+const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "DOWN":
-      return { ...state, y: Math.max(state.y - 1, 1) }; ///...state imi creaza o copie a stari curente si modifica doar anumite proprietati
-    case "UP":
-      return { ...state, y: Math.min(state.y + 1, 8) };
-    case "LEFT":
-      return { ...state, x: Math.max(state.x - 1, 1) };
-    case "RIGHT":
-      return { ...state, x: Math.min(state.x + 1, 8) };
+    case 'UPDATE_RED_DOT_POSITION':
+      return {
+        ...state,
+        x: action.payload.x,
+        y: action.payload.y,
+      };
     default:
       return state;
   }
 };
 
-export default playerControllerReducer;
+export default rootReducer;
