@@ -74,7 +74,13 @@ const MapBase = ({ x, y, direction }) => {
             className={className}
             style={isBorderCell ? { backgroundImage: `url(${marginImage})`, backgroundSize: 'cover',backgroundRepeat: 'no-repeat'  } : {}}
           >
-            {className === "duck-cell" && <img src={getDuckImage()} alt="Duck" backgroundSize="contain" />}
+            {className === "duck-cell" && (
+              <img 
+                src={getDuckImage()} 
+                alt="Duck" 
+                style={{ width: '40px', height: '40px', objectFit: 'contain' }} 
+              />
+            )}
           </td>
         );
       }
