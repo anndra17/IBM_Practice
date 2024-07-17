@@ -1,8 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import "./../styles/PlayerController.css";
 
 const PlayerController = ({ x, y, incrementX, decrementX, incrementY, decrementY, hp, strength }) => {
+
+  // Adăugăm event listener pentru keydown
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      switch (event.key) {
+        case 'ArrowUp':
+          incrementY();
+          break;
+        case 'ArrowDown':
+          decrementY();
+          break;
+        case 'ArrowLeft':
+          decrementX();
+          break;
+        case 'ArrowRight':
+          incrementX();
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup event listener la demontarea componentei
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [incrementX, decrementX, incrementY, decrementY]);
+
   const renderHearts = () => {
     let hearts = [];
     for (let i = 0; i < hp; i++) {

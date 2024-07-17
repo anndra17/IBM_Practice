@@ -29,22 +29,22 @@
 
 .button.up {
   grid-area: up;
-  background-color: rgb(255, 0, 119);
+  background-color: rgb(136, 91, 52);
 }
 
 .button.left {
   grid-area: left;
-  background-color: turquoise;
+  background-color: beige;
 }
 
 .button.down {
   grid-area: down;
-  background-color: yellow;
+  background-color: rgb(113, 113, 77);
 }
 
 .button.right {
   grid-area: right;
-  background-color: rgb(19, 192, 108);
+  background-color: rgb(228, 228, 162);
 }
 
   .controls {

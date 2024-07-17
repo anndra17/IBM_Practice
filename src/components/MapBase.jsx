@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import "./../styles/MapBase.css";
-import marginImage from "./../assets/marginImage.jpeg";
+import marginImage from "./../assets/marginImage.png";
 import duckUpImage from "./../assets/duck_up.gif";
 import duckDownImage from "./../assets/duck_down.gif";
 import duckLeftImage from "./../assets/duck_left.gif";
