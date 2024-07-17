@@ -19,8 +19,9 @@
   position: absolute;
   width: 50px;
   height: 50px;
-  background-color: rgb(155, 198, 155); 
-  transition: transform 0.5s ease-in-out; /* Tranziția */
+  background-color: rgb(155, 198, 155);
+  transition: transform 0.5s ease-in-out;
+  /* Tranziția */
 }
 
 .duck-image {
@@ -30,25 +31,33 @@
   background-color: rgb(155, 198, 155);
 }
 
-.duck-up, .duck-down, .duck-left, .duck-right {
+.duck-up,
+.duck-down,
+.duck-left,
+.duck-right {
   position: absolute;
-  transition: transform 0.5s ease-in-out; /* Adjust the duration and timing function as needed */
+  transition: transform 0.5s ease-in-out;
+  /* Adjust the duration and timing function as needed */
 }
 
 .duck-up {
-  transform: translateY(-50px); /* Move up */
+  transform: translateY(-50px);
+  /* Move up */
 }
 
 .duck-down {
-  transform: translateY(50px); /* Move down */
+  transform: translateY(50px);
+  /* Move down */
 }
 
 .duck-left {
-  transform: translateX(-50px); /* Move left */
+  transform: translateX(-50px);
+  /* Move left */
 }
 
 .duck-right {
-  transform: translateX(50px); /* Move right */
+  transform: translateX(50px);
+  /* Move right */
 }
 
 
@@ -59,8 +68,43 @@
 
 .fire-cell {
   background-image: url('./../assets/fire.gif');
-  background-size: contain; /* Ajustează dimensiunea pentru a se potrivi conținutului */
-  background-repeat: no-repeat; /* Asigură că imaginea nu se repetă */
+  background-size: contain;
+  /* Ajustează dimensiunea pentru a se potrivi conținutului */
+  background-repeat: no-repeat;
+  /* Asigură că imaginea nu se repetă */
   background-position: center;
   background-color: rgb(155, 198, 155);
+}
+
+@keyframes flame {
+  0% {
+    color: red;
+    transform: scale(1);
+  }
+
+  25% {
+    color: orange;
+    transform: scale(1.1);
+  }
+
+  50% {
+    color: yellow;
+    transform: scale(1.2);
+  }
+
+  75% {
+    color: orange;
+    transform: scale(1.1);
+  }
+
+  100% {
+    color: red;
+    transform: scale(1);
+  }
+}
+
+.map-title {
+  animation: flame 2s infinite;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  /* Optional: for a more dynamic font style */
 }
