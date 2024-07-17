@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import "./../styles/MapBase.css"; 
+import "./../styles/MapBase.css";
 import marginImage from "./../assets/marginImage.jpeg";
 import duckUpImage from "./../assets/duck_up.gif";
 import duckDownImage from "./../assets/duck_down.gif";
@@ -76,10 +76,10 @@ const MapBase = ({ x, y, direction }) => {
             className={className}
             style={isBorderCell ? { backgroundImage: `url(${marginImage})`, backgroundSize: 'cover' } : {}}>
             {className === "duck-cell" && (
-              <img 
-                src={getDuckImage()} 
-                alt="Duck" 
-                className="duck-image" 
+              <img
+                src={getDuckImage()}
+                alt="Duck"
+                className="duck-image"
               />
             )}
           </td>
@@ -92,7 +92,7 @@ const MapBase = ({ x, y, direction }) => {
 
   return (
     <div>
-      <h1 className="map-title">Map</h1>
+      <h1 className="map-title">DUCK'S ON FIRE</h1>
       <table className="map-table">
         <tbody>{renderTable()}</tbody>
       </table>
