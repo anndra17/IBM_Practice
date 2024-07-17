@@ -1,29 +1,89 @@
+.player-slice {
+  display: inline-grid;
+  grid-template-columns: 8;
+  gap: 20%
+}
+
+.player-controls {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+.button {
+  width: 50px;
+  height: 50px; 
+  border: 2px  black; 
+  display: flex; /* pentru centrarea conținutului */
+  justify-content: center; /* centru orizontal al conținutului */
+  align-items: center; /* centru vertical al conținutului */
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* formă romb */
+}
+
 .button.up {
-    grid-area: up;
-  }
-  
-  .button.left {
-    grid-area: left;
-  }
-  
-  .button.down {
-    grid-area: down;
-  }
-  
-  .button.right {
-    grid-area: right;
-  }
+  grid-area: up;
+  background-color: rgb(255, 0, 119);
+}
+
+.button.left {
+  grid-area: left;
+  background-color: turquoise;
+}
+
+.button.down {
+  grid-area: down;
+  background-color: yellow;
+}
+
+.button.right {
+  grid-area: right;
+  background-color: rgb(19, 192, 108);
+}
 
   .controls {
-    width: 200px; 
-    margin-left: auto;
-    margin-right: auto;
-    gap: 5px;
     display: grid;
-    grid-template-areas:
+  grid-template-areas:
     ". up ."
     "left . right"
     ". down .";
+  
   }
 
+  .player-status {
+    grid-column-start: 7;
+    grid-column-end: 8;
+  }
+
+.button::after {
+  content: '';
+  border-style: solid;
+}
+
+.button.up::after {
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent rgb(0, 0, 0) transparent;
+}
+
+.button.left::after {
+  border-width: 10px 10px 10px 0;
+  border-color: transparent black transparent transparent;
+}
+
+.button.down::after {
+  border-width: 10px 10px 0 10px;
+  border-color: black transparent transparent transparent;
+}
+
+.button.right::after {
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent black;
+}
   
+.button:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+}
+
+.button:active {
+  background-color:blueviolet;
+}
+

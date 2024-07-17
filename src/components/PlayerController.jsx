@@ -2,24 +2,29 @@ import React from "react";
 import { connect } from "react-redux";
 import "./../styles/PlayerController.css";
 
-const PlayerController = ({ x, y, incrementX, decrementX, incrementY, decrementY }) => {
-  return (
-    <div>
-      <p className="counter_title">Player position: X={x} Y={y}</p>
+const PlayerController = ({ x, y, incrementX, decrementX, incrementY, decrementY, hp, strength }) => {
+  const renderHearts = () => {
+    let hearts = [];
+    for (let i = 0; i < hp; i++) {
+      hearts.push(<span key={i} className="heart">♥</span>);
+    }
+    return hearts;
+  };
 
-      <div className="controls">
-        <button className="button up" onClick={incrementY} >
-          UP
-        </button>
-        <button className="button left" onClick={decrementX} >
-          LEFT
-        </button>
-        <button className="button down" onClick={decrementY}>
-          DOWN
-        </button>
-        <button className="button right" onClick={incrementX}>
-          RIGHT
-        </button>
+  return (
+    <div className="player-slice">
+      <div className="player-controls">
+        <p className="counter-title"> X={x} Y={y}</p>
+        <div className="controls">
+          <button className="button up" onClick={incrementY}></button>
+          <button className="button left" onClick={decrementX}></button>
+          <button className="button down" onClick={decrementY}></button>
+          <button className="button right" onClick={incrementX}></button>
+        </div>
+      </div>
+      <div className="player-status">
+        <p>HP: {renderHearts()} </p>
+        <p>Strength: {strength} </p>
       </div>
     </div>
   );
@@ -27,7 +32,9 @@ const PlayerController = ({ x, y, incrementX, decrementX, incrementY, decrementY
 
 const mapStateToProps = (state) => ({
   x: state.x,
-  y: state.y
+  y: state.y,
+  hp: state.hp,
+  strength: state.strength
 });
 
 const mapDispatchToProps = (dispatch) => ({

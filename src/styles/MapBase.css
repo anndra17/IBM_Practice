@@ -1,29 +1,37 @@
 /* src/components/MapBase.css */
 .map-table {
   border-collapse: collapse;
-  margin: 20px auto;
+  margin: 10px auto;
 }
 
 .map-cell {
-  width: 50px;
-  /* Adjust the width as needed */
-  height: 50px;
-  /* Adjust the height as needed */
+  width: 60px;
+  height: 60px;
   border: 1px solid black;
   text-align: center;
   vertical-align: middle;
+  background-color: rgb(155, 198, 155);
+
 }
 
-.red-cell {
-  background-color: red;
+
+
+.duck-cell {
+  /* background-image: url('./../assets/duck_down.gif'); */
+  background-size: contain; /* Ajustează dimensiunea pentru a se potrivi conținutului */
+  background-color: rgb(155, 198, 155);
 }
+
 
 .map-title {
   text-align: center;
-  font-size: 24px;
   margin-bottom: 10px;
 }
 
-.yellow-cell {
-  background-color: yellow;
+.fire-cell {
+  background-image: url('./../assets/fire.gif');
+  background-size: contain; /* Ajustează dimensiunea pentru a se potrivi conținutului */
+  background-repeat: no-repeat; /* Asigură că imaginea nu se repetă */
+  background-position: center;
+  background-color: rgb(155, 198, 155);
 }
