@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import "./../styles/MapBase.css"; // Adjust the path as needed
+import "./../styles/MapBase.css"; 
 import marginImage from "./../assets/marginImage.jpeg";
-import duckImageUp from "./../assets/duck_up.gif";
-import duckImageDown from "./../assets/duck_down.gif";
-import duckImageLeft from "./../assets/duck_left.gif";
-import duckImageRight from "./../assets/duck_right.gif";
+import duckUpImage from "./../assets/duck_up.gif";
+import duckDownImage from "./../assets/duck_down.gif";
+import duckLeftImage from "./../assets/duck_left.gif";
+import duckRightImage from "./../assets/duck_right.gif";
 
 const MapBase = ({ x, y, direction }) => {
-  // State for the yellow dot's position
   const [yellowDot, setYellowDot] = useState({ x: 1, y: 1 });
+  const [prevPosition, setPrevPosition] = useState({ x: 1, y: 1 });
 
   const moveYellowDot = () => {
     const possibleMoves = [
@@ -25,7 +25,6 @@ const MapBase = ({ x, y, direction }) => {
       const newX = prev.x + currentMove.x;
       const newY = prev.y + currentMove.y;
 
-      // Ensure the yellow dot stays within the boundaries (1 to 8)
       if (newX >= 1 && newX <= 8 && newY >= 1 && newY <= 8) {
         return { x: newX, y: newY };
       }
@@ -33,24 +32,27 @@ const MapBase = ({ x, y, direction }) => {
     });
   };
 
-  // Update yellow dot's position every second
   useEffect(() => {
     const interval = setInterval(moveYellowDot, 1000);
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    setPrevPosition({ x, y });
+  }, [x, y]);
+
   const getDuckImage = () => {
     switch (direction) {
       case "UP":
-        return duckImageUp;
+        return duckUpImage;
       case "DOWN":
-        return duckImageDown;
+        return duckDownImage;
       case "LEFT":
-        return duckImageLeft;
+        return duckLeftImage;
       case "RIGHT":
-        return duckImageRight;
+        return duckRightImage;
       default:
-        return duckImageDown;
+        return duckUpImage;
     }
   };
 
@@ -72,13 +74,12 @@ const MapBase = ({ x, y, direction }) => {
           <td
             key={`${row}-${col}`}
             className={className}
-            style={isBorderCell ? { backgroundImage: `url(${marginImage})`, backgroundSize: 'cover',backgroundRepeat: 'no-repeat'  } : {}}
-          >
+            style={isBorderCell ? { backgroundImage: `url(${marginImage})`, backgroundSize: 'cover' } : {}}>
             {className === "duck-cell" && (
               <img 
                 src={getDuckImage()} 
                 alt="Duck" 
-                style={{ width: '40px', height: '40px', objectFit: 'contain' }} 
+                className="duck-image" 
               />
             )}
           </td>
