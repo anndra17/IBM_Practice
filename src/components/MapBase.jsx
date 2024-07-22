@@ -8,16 +8,23 @@ import duckDownImage from "./../assets/duck_down.gif";
 import duckLeftImage from "./../assets/duck_left.gif";
 import duckRightImage from "./../assets/duck_right.gif";
 
-const MapBase = ({ x, y, direction }) => {
+const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable }) => {
   const [opponent, setOpponent] = useState({ x: 8, y: 8, direction: "UP" });
   const [showModal, setShowModal] = useState(false);
 
+  const closeModal = () => {
+    setShowModal(false);
+    setIsNpcMovable(true); // Restabilește mișcarea NPC-ului
+  };
+
   const moveOpponent = () => {
+    if (!isNpcMovable) return; // Nu muta NPC-ul dacă mișcarea este dezactivată
+
     const possibleMoves = [
-      { x: 0, y: -1, direction: "UP" },    // Up
-      { x: 0, y: 1, direction: "DOWN" },   // Down
-      { x: -1, y: 0, direction: "LEFT" },  // Left
-      { x: 1, y: 0, direction: "RIGHT" },  // Right
+      { x: 0, y: -1, direction: "UP" },
+      { x: 0, y: 1, direction: "DOWN" },
+      { x: -1, y: 0, direction: "LEFT" },
+      { x: 1, y: 0, direction: "RIGHT" },
     ];
 
     const currentMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
@@ -38,11 +45,12 @@ const MapBase = ({ x, y, direction }) => {
     return () => {
       clearInterval(opponentInterval);
     };
-  }, []);
+  }, [isNpcMovable]);
 
   useEffect(() => {
     if (x === opponent.x && y === opponent.y) {
       setShowModal(true);
+      setIsNpcMovable(false); // Suspendă mișcarea NPC-ului când se întâlnește cu jucătorul
     }
   }, [x, y, opponent]);
 
@@ -79,7 +87,8 @@ const MapBase = ({ x, y, direction }) => {
           <td
             key={`${row}-${col}`}
             className={className}
-            style={isBorderCell ? { backgroundImage: `url(${marginImage})`, backgroundSize: 'cover' } : {}}>
+            style={isBorderCell ? { backgroundImage: `url(${marginImage})`, backgroundSize: 'cover' } : {}}
+          >
             {className === "duck-cell" && (
               <img
                 src={getDuckImage(direction)}
@@ -108,7 +117,7 @@ const MapBase = ({ x, y, direction }) => {
       <table className="map-table">
         <tbody>{renderTable()}</tbody>
       </table>
-      <Modal show={showModal} handleClose={() => setShowModal(false)}>
+      <Modal show={showModal} handleClose={closeModal}>
         <p>The player and the opponent have met!</p>
       </Modal>
     </div>
@@ -119,6 +128,11 @@ const mapStateToProps = (state) => ({
   x: state.x,
   y: state.y,
   direction: state.direction,
+  isNpcMovable: state.isNpcMovable
 });
 
-export default connect(mapStateToProps)(MapBase);
+const mapDispatchToProps = (dispatch) => ({
+  setIsNpcMovable: (movable) => dispatch({ type: "SET_NPC_MOVABLE", payload: movable })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapBase);
