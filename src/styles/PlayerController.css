@@ -10,8 +10,10 @@
 }
 
 .player-status {
-  grid-column-start: 7;
-  grid-column-end: 8;
+  grid-column-start: 3;
+  grid-column-end: 7;
+  margin: 0px 15px;
+  background-color: rgba(227, 226, 148, 0.089);
 }
 
 
@@ -85,5 +87,16 @@
   background-color:blueviolet;
 }
 
+.opponent-status {
+  display: inline;
+  background-color: aliceblue;
+}
 
+.game-slice {
+  display: flex;
+}
 
+.opponent-status {
+  margin-left: 150px;
+  background-color: rgba(165, 116, 116, 0.192);
+}

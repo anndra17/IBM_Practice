@@ -2,7 +2,19 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import "./../styles/PlayerController.css";
 
-const PlayerController = ({ x, y, incrementX, decrementX, incrementY, decrementY, hp, strength, isNpcMovable }) => {
+const PlayerController = ({ 
+  x, 
+  y, 
+  incrementX, 
+  decrementX, 
+  incrementY, 
+  decrementY, 
+  player_hp, 
+  player_strength, 
+  opponent_hp, 
+  opponent_strength, 
+  isNpcMovable 
+}) => {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -33,7 +45,7 @@ const PlayerController = ({ x, y, incrementX, decrementX, incrementY, decrementY
     };
   }, [incrementX, decrementX, incrementY, decrementY, isNpcMovable]);
 
-  const renderHearts = () => {
+  const renderHearts = (hp) => {
     let hearts = [];
     for (let i = 0; i < hp; i++) {
       hearts.push(<span key={i} className="heart">♥</span>);
@@ -41,7 +53,16 @@ const PlayerController = ({ x, y, incrementX, decrementX, incrementY, decrementY
     return hearts;
   };
 
+
+
   return (
+    <div className="game-slice"> 
+      <div className="opponent-status">
+        <p>Opponent Status</p>
+        <p>HP: {renderHearts(opponent_hp)}</p>
+        <p>Strength: {opponent_strength}</p>
+      </div>
+
     <div className="player-slice">
       <div className="player-controls">
         <p className="counter-title"> X={x} Y={y}</p>
@@ -53,9 +74,11 @@ const PlayerController = ({ x, y, incrementX, decrementX, incrementY, decrementY
         </div>
       </div>
       <div className="player-status">
-        <p>HP: {renderHearts()} </p>
-        <p>Strength: {strength} </p>
+        <p>Player Status</p>
+        <p>HP: {renderHearts(player_hp)} </p>
+        <p>Strength: {player_strength} </p>
       </div>
+    </div>
     </div>
   );
 };
@@ -63,8 +86,10 @@ const PlayerController = ({ x, y, incrementX, decrementX, incrementY, decrementY
 const mapStateToProps = (state) => ({
   x: state.x,
   y: state.y,
-  hp: state.hp,
-  strength: state.strength,
+  player_hp: state.player_hp,
+  player_strength: state.player_strength,
+  opponent_hp: state.opponent_hp,
+  opponent_strength: state.opponent_strength,
   isNpcMovable: state.isNpcMovable
 });
 

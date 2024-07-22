@@ -1,8 +1,10 @@
 const initialState = {
   x: 4,
   y: 4,
-  hp: 3,
-  strength: 10,
+  player_hp: 3,
+  player_strength: 10,
+  opponent_hp: 3,
+  opponent_strength: 10,
   direction: "UP", // Initial direction
   isNpcMovable: true // Adăugăm flag-ul pentru mișcarea NPC-ului
 };
