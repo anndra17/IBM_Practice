@@ -1,10 +1,12 @@
 /* src/components/MapBase.css */
+
 .map-table {
   border-collapse: collapse;
   margin: 10px auto;
 }
 
 .map-cell {
+  background-size: contain;
   width: 50px;
   height: 50px;
   border: 1px solid black;
@@ -14,62 +16,34 @@
   position: relative;
 }
 
-
-.duck-cell {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background-color: rgb(155, 198, 155);
-  transition: transform 0.5s ease-in-out;
-  /* Tranziția */
-}
-
-.duck-image {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-  background-color: rgb(155, 198, 155);
-}
-
-
-
-.duck-up {
-  transform: translateY(-50px);
-  /* Move up */
-}
-
-.duck-down {
-  transform: translateY(50px);
-  /* Move down */
-}
-
-.duck-left {
-  transform: translateX(-50px);
-  /* Move left */
-}
-
-.duck-right {
-  transform: translateX(50px);
-  /* Move right */
-}
-
-
-.map-title {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
 .opponent-cell {
   background-size: contain;
   /* Ajustează dimensiunea pentru a se potrivi conținutului */
   background-repeat: no-repeat;
   /* Asigură că imaginea nu se repetă */
   background-position: center;
-  position: absolute;
   width: 50px;
   height: 50px;
   background-color: rgb(155, 198, 155);
   filter:  hue-rotate(-50deg);
+}
+
+.duck-cell{
+  background-color: rgb(155, 198, 155);
+  transition: transform 0.5s ease-in-out;
+}
+
+.duck-image {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  object-fit: contain;
+  background-color: rgb(155, 198, 155);
+}
+
+.map-title {
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 @keyframes flame {
@@ -101,6 +75,7 @@
 
 .map-title {
   animation: flame 2s infinite;
+  font-size: 20px;
   font-family: 'Comic Sans MS', cursive, sans-serif;
   /* Optional: for a more dynamic font style */
 }

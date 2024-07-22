@@ -9,12 +9,11 @@ import duckRightImage from "./../assets/duck_right.gif";
 
 const MapBase = ({ x, y, direction }) => {
   const [opponent, setOpponent] = useState({ x: 8, y: 8, direction: "UP" });
-  const [prevPosition, setPrevPosition] = useState({ x: 1, y: 1 });
 
   const moveOpponent = () => {
     const possibleMoves = [
-      { x: 0, y: -1, direction: "DOWN" },  // Up
-      { x: 0, y: 1, direction: "UP" },     // Down
+      { x: 0, y: -1, direction: "UP" },    // Up
+      { x: 0, y: 1, direction: "DOWN" },   // Down
       { x: -1, y: 0, direction: "LEFT" },  // Left
       { x: 1, y: 0, direction: "RIGHT" },  // Right
     ];
@@ -38,10 +37,6 @@ const MapBase = ({ x, y, direction }) => {
       clearInterval(opponentInterval);
     };
   }, []);
-
-  useEffect(() => {
-    setPrevPosition({ x, y });
-  }, [x, y]);
 
   const getDuckImage = (direction) => {
     switch (direction) {
@@ -88,7 +83,7 @@ const MapBase = ({ x, y, direction }) => {
               <img
                 src={getDuckImage(opponent.direction)}
                 alt="Opponent Duck"
-                className="duck-image duck-opponent-image"
+                className="duck-image"
               />
             )}
           </td>
