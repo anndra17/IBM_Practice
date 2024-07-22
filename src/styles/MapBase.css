@@ -14,52 +14,22 @@
   position: relative;
 }
 
-
 .duck-cell {
-  position: absolute;
+  position: relative;
   width: 50px;
   height: 50px;
   background-color: rgb(155, 198, 155);
   transition: transform 0.5s ease-in-out;
-  /* Tranziția */
 }
 
-.duck-image {
-  width: 50px;
-  height: 50px;
+.duck-image,
+.rata-image {
+  width: 40px;
+  /* Adjust the size as needed */
+  height: 40px;
+  /* Adjust the size as needed */
   object-fit: contain;
-  background-color: rgb(155, 198, 155);
 }
-
-.duck-up,
-.duck-down,
-.duck-left,
-.duck-right {
-  position: absolute;
-  transition: transform 0.5s ease-in-out;
-  /* Adjust the duration and timing function as needed */
-}
-
-.duck-up {
-  transform: translateY(-50px);
-  /* Move up */
-}
-
-.duck-down {
-  transform: translateY(50px);
-  /* Move down */
-}
-
-.duck-left {
-  transform: translateX(-50px);
-  /* Move left */
-}
-
-.duck-right {
-  transform: translateX(50px);
-  /* Move right */
-}
-
 
 .map-title {
   text-align: center;
@@ -67,13 +37,10 @@
 }
 
 .fire-cell {
-  background-image: url('./../assets/fire.gif');
-  background-size: contain;
-  /* Ajustează dimensiunea pentru a se potrivi conținutului */
-  background-repeat: no-repeat;
-  /* Asigură că imaginea nu se repetă */
-  background-position: center;
   background-color: rgb(155, 198, 155);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes flame {
@@ -106,5 +73,4 @@
 .map-title {
   animation: flame 2s infinite;
   font-family: 'Comic Sans MS', cursive, sans-serif;
-  /* Optional: for a more dynamic font style */
 }

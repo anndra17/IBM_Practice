@@ -44,7 +44,7 @@ const PlayerController = ({ x, y, incrementX, decrementX, incrementY, decrementY
   return (
     <div className="player-slice">
       <div className="player-controls">
-        <p className="counter-title"> X={x} Y={y}</p>
+
         <div className="controls">
           <button className="button up" onClick={incrementY}></button>
           <button className="button left" onClick={decrementX}></button>

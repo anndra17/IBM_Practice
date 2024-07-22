@@ -6,10 +6,11 @@ import duckUpImage from "./../assets/duck_up.gif";
 import duckDownImage from "./../assets/duck_down.gif";
 import duckLeftImage from "./../assets/duck_left.gif";
 import duckRightImage from "./../assets/duck_right.gif";
+import rataImage from "./../assets/rata.gif";
+import rata1Image from "./../assets/rata1.gif";
 
 const MapBase = ({ x, y, direction }) => {
   const [yellowDot, setYellowDot] = useState({ x: 1, y: 1 });
-  const [prevPosition, setPrevPosition] = useState({ x: 1, y: 1 });
 
   const moveYellowDot = () => {
     const possibleMoves = [
@@ -37,10 +38,6 @@ const MapBase = ({ x, y, direction }) => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    setPrevPosition({ x, y });
-  }, [x, y]);
-
   const getDuckImage = () => {
     switch (direction) {
       case "UP":
@@ -54,6 +51,10 @@ const MapBase = ({ x, y, direction }) => {
       default:
         return duckUpImage;
     }
+  };
+
+  const getRandomRataImage = () => {
+    return Math.random() > 0.5 ? rataImage : rata1Image;
   };
 
   const renderTable = () => {
@@ -80,6 +81,13 @@ const MapBase = ({ x, y, direction }) => {
                 src={getDuckImage()}
                 alt="Duck"
                 className="duck-image"
+              />
+            )}
+            {className === "fire-cell" && (
+              <img
+                src={getRandomRataImage()}
+                alt="Rata"
+                className="rata-image"
               />
             )}
           </td>
