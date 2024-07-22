@@ -8,40 +8,42 @@ import duckLeftImage from "./../assets/duck_left.gif";
 import duckRightImage from "./../assets/duck_right.gif";
 
 const MapBase = ({ x, y, direction }) => {
-  const [yellowDot, setYellowDot] = useState({ x: 1, y: 1 });
+  const [opponent, setOpponent] = useState({ x: 8, y: 8, direction: "UP" });
   const [prevPosition, setPrevPosition] = useState({ x: 1, y: 1 });
 
-  const moveYellowDot = () => {
+  const moveOpponent = () => {
     const possibleMoves = [
-      { x: 0, y: -1 }, // Up
-      { x: 0, y: 1 },  // Down
-      { x: -1, y: 0 }, // Left
-      { x: 1, y: 0 },  // Right
+      { x: 0, y: -1, direction: "DOWN" },  // Up
+      { x: 0, y: 1, direction: "UP" },     // Down
+      { x: -1, y: 0, direction: "LEFT" },  // Left
+      { x: 1, y: 0, direction: "RIGHT" },  // Right
     ];
 
     const currentMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
 
-    setYellowDot((prev) => {
+    setOpponent((prev) => {
       const newX = prev.x + currentMove.x;
       const newY = prev.y + currentMove.y;
 
       if (newX >= 1 && newX <= 8 && newY >= 1 && newY <= 8) {
-        return { x: newX, y: newY };
+        return { x: newX, y: newY, direction: currentMove.direction };
       }
       return prev;
     });
   };
 
   useEffect(() => {
-    const interval = setInterval(moveYellowDot, 1000);
-    return () => clearInterval(interval);
+    const opponentInterval = setInterval(moveOpponent, 1000);
+    return () => {
+      clearInterval(opponentInterval);
+    };
   }, []);
 
   useEffect(() => {
     setPrevPosition({ x, y });
   }, [x, y]);
 
-  const getDuckImage = () => {
+  const getDuckImage = (direction) => {
     switch (direction) {
       case "UP":
         return duckUpImage;
@@ -66,8 +68,8 @@ const MapBase = ({ x, y, direction }) => {
 
         if (col === x && row === y) {
           className = "duck-cell";
-        } else if (col === yellowDot.x && row === yellowDot.y) {
-          className = "fire-cell";
+        } else if (col === opponent.x && row === opponent.y) {
+          className = "opponent-cell";
         }
 
         cells.push(
@@ -77,9 +79,16 @@ const MapBase = ({ x, y, direction }) => {
             style={isBorderCell ? { backgroundImage: `url(${marginImage})`, backgroundSize: 'cover' } : {}}>
             {className === "duck-cell" && (
               <img
-                src={getDuckImage()}
+                src={getDuckImage(direction)}
                 alt="Duck"
                 className="duck-image"
+              />
+            )}
+            {className === "opponent-cell" && (
+              <img
+                src={getDuckImage(opponent.direction)}
+                alt="Opponent Duck"
+                className="duck-image duck-opponent-image"
               />
             )}
           </td>
