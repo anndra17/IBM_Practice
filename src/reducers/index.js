@@ -1,3 +1,6 @@
+import { START_ATTACK, STOP_ATTACK } from "./../actions/attackActions";
+
+
 const initialState = {
   x: 4,
   y: 4,
@@ -5,8 +8,10 @@ const initialState = {
   player_strength: 10,
   opponent_hp: 3,
   opponent_strength: 10,
-  direction: "UP", // Initial direction
-  isNpcMovable: true // Adăugăm flag-ul pentru mișcarea NPC-ului
+  direction: "UP", 
+  isNpcMovable: true,
+  isAttacking: false, // Added state to track attack status
+
 };
 
 const playerControllerReducer = (state = initialState, action) => {
@@ -25,6 +30,10 @@ const playerControllerReducer = (state = initialState, action) => {
       return { ...state, x: Math.min(state.x + 1, 8), direction: "RIGHT" };
     case "SET_NPC_MOVABLE":
       return { ...state, isNpcMovable: action.payload };
+    case START_ATTACK:
+      return { ...state, isAttacking: true };
+    case STOP_ATTACK:
+      return { ...state, isAttacking: false };
     default:
       return state;
   }

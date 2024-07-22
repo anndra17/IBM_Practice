@@ -17,6 +17,15 @@ const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable }) => {
     setIsNpcMovable(true); // Restabilește mișcarea NPC-ului
   };
 
+  const handleAttack = () => {
+    // Poți adăuga orice logică dorești pentru butonul Attack
+    console.log('Attack clicked');
+  };
+
+  const handleDefend = () => {
+    closeModal(); // Închide modalul când apăsăm pe Defend
+  };
+
   const moveOpponent = () => {
     if (!isNpcMovable) return; // Nu muta NPC-ul dacă mișcarea este dezactivată
 
@@ -117,7 +126,7 @@ const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable }) => {
       <table className="map-table">
         <tbody>{renderTable()}</tbody>
       </table>
-      <Modal show={showModal} handleClose={closeModal}>
+      <Modal show={showModal} handleAttack={handleAttack} handleDefend={handleDefend}>
         <p>The player and the opponent have met!</p>
       </Modal>
     </div>
