@@ -138,9 +138,7 @@ const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable, player_hp, pl
       <table className="map-table">
         <tbody>{renderTable()}</tbody>
       </table>
-      <Modal show={showModal} handleAttack={handleAttack} handleDefend={handleDefend}>
-        <p>The player and the opponent have met!</p>
-      </Modal>
+      <Modal show={showModal} handleAttack={handleAttack} handleDefend={handleDefend}/>
     </div>
   );
 };

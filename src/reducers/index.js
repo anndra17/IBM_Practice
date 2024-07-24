@@ -30,10 +30,6 @@ const playerControllerReducer = (state = initialState, action) => {
       return { ...state, x: Math.min(state.x + 1, 8), direction: "RIGHT" };
     case "SET_NPC_MOVABLE":
       return { ...state, isNpcMovable: action.payload };
-    case START_ATTACK:
-      return { ...state, isAttacking: true };
-    case STOP_ATTACK:
-      return { ...state, isAttacking: false };
     default:
       return state;
   }
