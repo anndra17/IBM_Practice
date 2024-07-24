@@ -1,20 +1,12 @@
 .player-slice {
   display: inline-grid;
   grid-template-columns: 8;
-  gap: 20%
+  gap: 20%;
+  background-color: rgba(225, 226, 226, 0.377);
+  border-radius: 50%;
 }
 
-.player-controls {
-  grid-column-start: 2;
-  grid-column-end: 3;
-}
 
-.player-status {
-  grid-column-start: 3;
-  grid-column-end: 7;
-  margin: 0px 15px;
-  background-color: rgba(227, 226, 148, 0.089);
-}
 
 .button {
   width: 50px;

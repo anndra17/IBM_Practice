@@ -50,7 +50,6 @@ const PlayerController = ({
 
 
   return (
-    <div className="game-slice">
       <div className="player-slice">
         <div className="player-controls">
 
@@ -62,7 +61,6 @@ const PlayerController = ({
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
