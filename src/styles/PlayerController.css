@@ -16,17 +16,14 @@
   background-color: rgba(227, 226, 148, 0.089);
 }
 
-
 .button {
   width: 50px;
-  height: 50px; 
-  border: 2px  black; 
-
-  display: flex; /* pentru centrarea conținutului */
-  justify-content: center; /* centru orizontal al conținutului */
-  align-items: center; /* centru vertical al conținutului */
-
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* formă romb */
+  height: 50px;
+  border: 2px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
 }
 
 .button.up {
@@ -49,15 +46,14 @@
   background-color: rgb(228, 228, 162);
 }
 
-  .controls {
-    display: grid;
+.controls {
+  display: grid;
   grid-template-areas:
     ". up ."
     "left . right"
     ". down .";
-  
-  }
-  
+}
+
 .button::after {
   content: '';
   border-style: solid;
@@ -84,7 +80,7 @@
 }
 
 .button:active {
-  background-color:blueviolet;
+  background-color: blueviolet;
 }
 
 .opponent-status {
