@@ -7,8 +7,9 @@ import duckUpImage from "./../assets/duck_up.gif";
 import duckDownImage from "./../assets/duck_down.gif";
 import duckLeftImage from "./../assets/duck_left.gif";
 import duckRightImage from "./../assets/duck_right.gif";
+import backgroundImage from "./../assets/background.png";
 
-const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable }) => {
+const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable, player_hp, player_strength, opponent_hp, opponent_strength }) => {
   const [opponent, setOpponent] = useState({ x: 8, y: 8, direction: "UP" });
   const [showModal, setShowModal] = useState(false);
 
@@ -18,7 +19,6 @@ const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable }) => {
   };
 
   const handleAttack = () => {
-    // Poți adăuga orice logică dorești pentru butonul Attack
     console.log('Attack clicked');
   };
 
@@ -27,13 +27,13 @@ const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable }) => {
   };
 
   const moveOpponent = () => {
-    if (!isNpcMovable) return; // Nu muta NPC-ul dacă mișcarea este dezactivată
+    if (!isNpcMovable) return;
 
     const possibleMoves = [
       { x: 0, y: -1, direction: "UP" },
       { x: 0, y: 1, direction: "DOWN" },
       { x: -1, y: 0, direction: "LEFT" },
-      { x: 1, y: 0, direction: "RIGHT" },
+      { x: 1, y: 0, direction: "RIGHT" }
     ];
 
     const currentMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
@@ -59,7 +59,7 @@ const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable }) => {
   useEffect(() => {
     if (x === opponent.x && y === opponent.y) {
       setShowModal(true);
-      setIsNpcMovable(false); // Suspendă mișcarea NPC-ului când se întâlnește cu jucătorul
+      setIsNpcMovable(false);
     }
   }, [x, y, opponent]);
 
@@ -121,7 +121,19 @@ const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable }) => {
   };
 
   return (
-    <div>
+    <div className="map-container">
+      <div className="status-container">
+        <div className="status-box">
+          <h2>Opponent Status</h2>
+          <p>HP: {opponent_hp}</p>
+          <p>Strength: {opponent_strength}</p>
+        </div>
+        <div className="status-box">
+          <h2>Player Status</h2>
+          <p>HP: {player_hp}</p>
+          <p>Strength: {player_strength}</p>
+        </div>
+      </div>
       <h1 className="map-title">DUCK'S ON FIRE</h1>
       <table className="map-table">
         <tbody>{renderTable()}</tbody>
@@ -137,7 +149,11 @@ const mapStateToProps = (state) => ({
   x: state.x,
   y: state.y,
   direction: state.direction,
-  isNpcMovable: state.isNpcMovable
+  isNpcMovable: state.isNpcMovable,
+  player_hp: state.player_hp,
+  player_strength: state.player_strength,
+  opponent_hp: state.opponent_hp,
+  opponent_strength: state.opponent_strength
 });
 
 const mapDispatchToProps = (dispatch) => ({
