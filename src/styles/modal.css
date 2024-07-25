@@ -6,14 +6,12 @@
     height: 100%;
     background: rgba(60, 38, 29, 0.6);
   }
-
-
   
   .modal-main {
     position:fixed;
     background-color: rgb(165, 143, 116);
-    width: 80%;
-    height: auto;
+    width: 60%;
+    height: 50%;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
@@ -26,4 +24,6 @@
   .display-none {
     display: none;
   }
-
+.button {
+    grid-column: 2;
+}
