@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import "./../styles/PlayerController.css";
+import { moveDown, moveUp, moveLeft, moveRight } from "../reducers/playerController";
 
 const PlayerController = ({
   x,
@@ -15,10 +16,9 @@ const PlayerController = ({
   opponent_strength,
   isNpcMovable
 }) => {
-
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (!isNpcMovable) return; // Nu permite mișcarea dacă NPC-ul nu este mișcabil
+      if (!isNpcMovable) return;
 
       switch (event.key) {
         case 'ArrowUp':
@@ -45,14 +45,9 @@ const PlayerController = ({
     };
   }, [incrementX, decrementX, incrementY, decrementY, isNpcMovable]);
 
-
-
-
-
   return (
       <div className="player-slice">
         <div className="player-controls">
-
           <div className="controls">
             <button className="button up" onClick={isNpcMovable ? incrementY : null} disabled={!isNpcMovable}></button>
             <button className="button left" onClick={isNpcMovable ? decrementX : null} disabled={!isNpcMovable}></button>
@@ -65,20 +60,20 @@ const PlayerController = ({
 };
 
 const mapStateToProps = (state) => ({
-  x: state.x,
-  y: state.y,
-  player_hp: state.player_hp,
-  player_strength: state.player_strength,
-  opponent_hp: state.opponent_hp,
-  opponent_strength: state.opponent_strength,
-  isNpcMovable: state.isNpcMovable
+  x: state.playerController.x,
+  y: state.playerController.y,
+  player_hp: state.playerController.player_hp,
+  player_strength: state.playerController.player_strength,
+  opponent_hp: state.opponent.hp,
+  opponent_strength: state.opponent.strength,
+  isNpcMovable: state.playerController.isNpcMovable
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  incrementX: () => dispatch({ type: "RIGHT" }),
-  decrementX: () => dispatch({ type: "LEFT" }),
-  decrementY: () => dispatch({ type: "UP" }),
-  incrementY: () => dispatch({ type: "DOWN" })
+  incrementX: () => dispatch(moveRight()),
+  decrementX: () => dispatch(moveLeft()),
+  incrementY: () => dispatch(moveUp()),
+  decrementY: () => dispatch(moveDown())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerController);

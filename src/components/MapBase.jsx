@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import "./../styles/MapBase.css";
 import Modal from "./Modal";
@@ -7,15 +7,23 @@ import duckUpImage from "./../assets/duck_up.gif";
 import duckDownImage from "./../assets/duck_down.gif";
 import duckLeftImage from "./../assets/duck_left.gif";
 import duckRightImage from "./../assets/duck_right.gif";
-import backgroundImage from "./../assets/background.png";
+import enemyDuckUpImage from "./../assets/enemy_duck_up.gif";
+import enemyDuckDownImage from "./../assets/enemy_duck_down.gif";
+import enemyDuckLeftImage from "./../assets/enemy_duck_left.gif";
+import enemyDuckRightImage from "./../assets/enemy_duck_right.gif";
+import { setNpcMovable } from "../reducers/playerController";
+import { moveOpponent } from "../reducers/opponent";
+import { showModal, hideModal } from '../reducers/modalSlice.js';
+import StatusDisplay from "./StatusDisplay.jsx";
 
-const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable, player_hp, player_strength, opponent_hp, opponent_strength }) => {
-  const [opponent, setOpponent] = useState({ x: 8, y: 8, direction: "UP" });
-  const [showModal, setShowModal] = useState(false);
-
+const MapBase = ({
+  x, y, direction, isNpcMovable, setNpcMovable, player_hp, player_strength,
+  opponent, moveOpponent, showModal, hideModal, showModalState
+}) => {
+  
   const closeModal = () => {
-    setShowModal(false);
-    setIsNpcMovable(true); // Restabilește mișcarea NPC-ului
+    hideModal();
+    setNpcMovable(true); // Restores NPC movement
   };
 
   const handleAttack = () => {
@@ -23,12 +31,10 @@ const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable, player_hp, pl
   };
 
   const handleDefend = () => {
-    closeModal(); // Închide modalul când apăsăm pe Defend
+    closeModal(); // Close modal on defend
   };
 
-  const moveOpponent = () => {
-    if (!isNpcMovable) return;
-
+  useEffect(() => {
     const possibleMoves = [
       { x: 0, y: -1, direction: "UP" },
       { x: 0, y: 1, direction: "DOWN" },
@@ -36,45 +42,57 @@ const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable, player_hp, pl
       { x: 1, y: 0, direction: "RIGHT" }
     ];
 
-    const currentMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+    const moveOpponentInterval = setInterval(() => {
+      if (!isNpcMovable) return;
 
-    setOpponent((prev) => {
-      const newX = prev.x + currentMove.x;
-      const newY = prev.y + currentMove.y;
+      const currentMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+      const newX = opponent.x + currentMove.x;
+      const newY = opponent.y + currentMove.y;
 
       if (newX >= 1 && newX <= 8 && newY >= 1 && newY <= 8) {
-        return { x: newX, y: newY, direction: currentMove.direction };
+        moveOpponent(newX, newY, currentMove.direction);
       }
-      return prev;
-    });
-  };
+    }, 1000);
 
-  useEffect(() => {
-    const opponentInterval = setInterval(moveOpponent, 1000);
     return () => {
-      clearInterval(opponentInterval);
+      clearInterval(moveOpponentInterval);
     };
-  }, [isNpcMovable]);
+  }, [isNpcMovable, opponent, moveOpponent]);
 
   useEffect(() => {
     if (x === opponent.x && y === opponent.y) {
-      setShowModal(true);
-      setIsNpcMovable(false);
+      showModal(); // Show modal when player meets opponent
+      setNpcMovable(false);
     }
-  }, [x, y, opponent]);
+  }, [x, y, opponent, setNpcMovable, showModal]);
 
-  const getDuckImage = (direction) => {
-    switch (direction) {
-      case "UP":
-        return duckUpImage;
-      case "DOWN":
-        return duckDownImage;
-      case "LEFT":
-        return duckLeftImage;
-      case "RIGHT":
-        return duckRightImage;
-      default:
-        return duckUpImage;
+  const getDuckImage = (direction, isPlayer) => {
+    if (isPlayer) {
+      switch (direction) {
+        case "UP":
+          return duckUpImage;
+        case "DOWN":
+          return duckDownImage;
+        case "LEFT":
+          return duckLeftImage;
+        case "RIGHT":
+          return duckRightImage;
+        default:
+          return duckUpImage;
+      }
+    } else {
+      switch (direction) {
+        case "UP":
+          return enemyDuckUpImage;
+        case "DOWN":
+          return enemyDuckDownImage;
+        case "LEFT":
+          return enemyDuckLeftImage;
+        case "RIGHT":
+          return enemyDuckRightImage;
+        default:
+          return enemyDuckUpImage;
+      }
     }
   };
 
@@ -100,14 +118,14 @@ const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable, player_hp, pl
           >
             {className === "duck-cell" && (
               <img
-                src={getDuckImage(direction)}
+                src={getDuckImage(direction, true)}
                 alt="Duck"
                 className="duck-image"
               />
             )}
             {className === "opponent-cell" && (
               <img
-                src={getDuckImage(opponent.direction)}
+                src={getDuckImage(opponent.direction, false)}
                 alt="Opponent Duck"
                 className="duck-image"
               />
@@ -122,40 +140,32 @@ const MapBase = ({ x, y, direction, isNpcMovable, setIsNpcMovable, player_hp, pl
 
   return (
     <div className="map-container">
-      <div className="status-container">
-        <div className="status-box">
-          <h2>Opponent Status</h2>
-          <p>HP: {opponent_hp}</p>
-          <p>Strength: {opponent_strength}</p>
-        </div>
-        <div className="status-box">
-          <h2>Player Status</h2>
-          <p>HP: {player_hp}</p>
-          <p>Strength: {player_strength}</p>
-        </div>
-      </div>
+      <StatusDisplay />
       <h1 className="map-title">DUCK'S ON FIRE</h1>
       <table className="map-table">
         <tbody>{renderTable()}</tbody>
       </table>
-      <Modal show={showModal} handleAttack={handleAttack} handleDefend={handleDefend}/>
+      <Modal show={showModalState} handleAttack={handleAttack} handleDefend={handleDefend}/>
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
-  x: state.x,
-  y: state.y,
-  direction: state.direction,
-  isNpcMovable: state.isNpcMovable,
-  player_hp: state.player_hp,
-  player_strength: state.player_strength,
-  opponent_hp: state.opponent_hp,
-  opponent_strength: state.opponent_strength
+  x: state.playerController.x,
+  y: state.playerController.y,
+  direction: state.playerController.direction,
+  isNpcMovable: state.playerController.isNpcMovable,
+  player_hp: state.playerController.player_hp,
+  player_strength: state.playerController.player_strength,
+  opponent: state.opponent,
+  showModalState: state.modal.showModal
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setIsNpcMovable: (movable) => dispatch({ type: "SET_NPC_MOVABLE", payload: movable })
+  setNpcMovable: (movable) => dispatch(setNpcMovable(movable)),
+  moveOpponent: (x, y, direction) => dispatch(moveOpponent(x, y, direction)),
+  showModal: () => dispatch(showModal()),
+  hideModal: () => dispatch(hideModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapBase);
