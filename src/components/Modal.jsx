@@ -18,6 +18,7 @@ const Modal = ({ handleAttack, handleDefend, show, children }) => {
         {children}
         <h1>The player and the opponent have met!</h1>
         <StatusDisplay />
+
         <button type="button" onClick={handleAttack}>
           Attack
         </button>

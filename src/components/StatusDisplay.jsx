@@ -3,20 +3,20 @@ import { connect } from "react-redux";
 import playerImg from "./../assets/duck_up.gif";
 import enemyImg from "./../assets/enemy_duck_up.gif";
 import { showModal } from '../reducers/modalSlice';
+import "./../styles/statusDisplay.css";
 
-
-const StatusDisplay = ({ playerHp, playerStrength, opponentHp, opponentStrength }) => {
+const StatusDisplay = ({ playerHp, playerStrength, opponentHp, opponentStrength, show }) => {
   return (
     <div className="status-container">
-      <div className="status-box"><h2>Player Status</h2>
-      <p>HP: {playerHp}</p>
-      <p>Strength: {playerStrength}</p>
+      <div className="status-box">
       {showModal &&<img src={playerImg} ></img>}
+      <p className="hp">HP: {playerHp}</p>
+      <p className="strength">Strength: {playerStrength}</p>
       </div>
-      =<div className="status-box"> <h2>Opponent Status</h2>
-      <p>HP: {opponentHp}</p>
-      <p>Strength: {opponentStrength}</p>
-      {showModal && <img src={enemyImg}></img>}
+      =<div className="status-box">
+      {showModal && <img src={enemyImg}></img>}  
+      <p className="hp">HP: {opponentHp}</p>
+      <p className="strength">Strength: {opponentStrength}</p>
       </div>
     </div>
   );

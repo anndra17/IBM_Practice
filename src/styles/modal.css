@@ -8,10 +8,13 @@
   }
   
   .modal-main {
+    background-image: url('./../assets/lake.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgb(0, 0, 0);
     position:fixed;
-    background-color: rgb(165, 143, 116);
-    width: 60%;
-    height: 50%;
+    width: 50%;
+    height: 61%;
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
