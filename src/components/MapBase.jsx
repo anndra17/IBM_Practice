@@ -15,6 +15,7 @@ import { setNpcMovable } from "../reducers/playerController";
 import { moveOpponent } from "../reducers/opponent";
 import { showModal, hideModal } from '../reducers/modalSlice.js';
 import StatusDisplay from "./StatusDisplay.jsx";
+import mapMatrix from "./../assets/mapMatrix.jsx"
 
 const MapBase = ({
   x, y, direction, isNpcMovable, setNpcMovable, player_hp, player_strength,
