@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+import { connect } from "react-redux";
 import './../styles/modal.css';
 import StatusDisplay from './StatusDisplay';
+import { attack, resetAttack } from '../reducers/attack';
 
-const Modal = ({ handleAttack, handleDefend, show, children }) => {
+const Modal = ({ handleAttack, handleDefend, show, children, isAttacking }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
 
   useEffect(() => {
@@ -12,12 +14,26 @@ const Modal = ({ handleAttack, handleDefend, show, children }) => {
     };
   }, []);
 
+
+
+  const handleAttackClick = () => {
+    setIsAttacking(true);
+    handleAttack();
+    
+  };
+
+  const handleDefendClick = () => {
+    setIsAttacking(false);
+    handleDefend();
+  };
+
+
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
         {children}
         <h1>The player and the opponent have met!</h1>
-        <StatusDisplay />
+        <StatusDisplay  isAttacking={isAttacking}/>
 
         <button type="button" onClick={handleAttack}>
           Attack
@@ -30,4 +46,15 @@ const Modal = ({ handleAttack, handleDefend, show, children }) => {
   );
 };
 
-export default Modal;
+const mapStateToProps = (state) => ({
+  isAttacking: state.isAttacking
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleAttack: () => dispatch(attack()),
+  handleDefend: () => dispatch(resetAttack()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);
+
+
