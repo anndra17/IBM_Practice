@@ -15,26 +15,45 @@ body {
 }
 
 .map-container {
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: row; /* Așează elementele în rând, nu în coloană */
+  height: 100vh; /* Asigură-te că ocupă întreaga înălțime a vizualizatorului */
+  padding: 0; /* Elimină padding-ul dacă nu este necesar */
+  box-sizing: border-box;
+}
+
+
+.map {
+  flex: 3; /* Ocupă mai mult spațiu în comparație cu statusul */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 200px;
-  box-sizing: border-box;
+  align-items: center; /* Centrare orizontală a mapei */
+  justify-content: center; /* Centrare verticală a mapei */
+  z-index: 0;
 }
 
-.status-container {
+.game-status {
+  flex: 1; /* Ocupă mai puțin spațiu */
   display: flex;
-  justify-content: space-around;
-  width: 100%;
-  padding: 20px;
+  flex-direction: column;
+  align-items: flex-start; /* Alinierea la stânga a statusului */
+  justify-content: flex-start; /* Alinierea la sus a statusului */
+  padding: 20px; /* Adaugă padding dacă dorești */
   box-sizing: border-box;
-  margin-bottom: 10px;
 }
 
-.status-box {
+.game-status-container {
+  display: flex;
+  flex-direction: column; /* Asigură-te că statusul se aliniază vertical */
+  width: 100%; /* Ocupă întreaga lățime disponibilă */
+  margin-top: 25vh;
+  margin-left: 20vh;
+  margin-right: 0vh;
+  box-sizing: border-box;
+}
+
+
+.game-status-box {
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid black;
   border-radius: 10px;
@@ -82,9 +101,11 @@ body {
 }
 
 .map-title {
-  text-align: center;
-  margin-bottom: 10px;
+  text-align: left;
+  margin-top: 30vh;
+
 }
+
 
 @keyframes flame {
   0% {

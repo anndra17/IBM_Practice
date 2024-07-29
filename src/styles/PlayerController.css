@@ -1,11 +1,18 @@
 .player-slice {
   display: inline-grid;
-  grid-template-columns: 8;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20%;
   background-color: rgba(225, 226, 226, 0.377);
   border-radius: 50%;
+  margin-right: 70vh;
+  margin-bottom: 20vh;;
+  margin-left: 0; /* Asigură-te că nu este niciun margin pe stânga */
 }
 
+.game-slice {
+  display: flex;
+  justify-content: flex-start; /* Asigură-te că elementele sunt aliniate la stânga */
+}
 
 
 .button {
@@ -75,10 +82,6 @@
   background-color: blueviolet;
 }
 
-.opponent-status {
-  display: inline;
-  background-color: aliceblue;
-}
 
 .game-slice {
   display: flex;

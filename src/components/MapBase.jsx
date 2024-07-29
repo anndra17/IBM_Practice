@@ -14,8 +14,8 @@ import enemyDuckRightImage from "./../assets/enemy_duck_right.gif";
 import { setNpcMovable } from "../reducers/playerController";
 import { moveOpponent } from "../reducers/opponent";
 import { showModal, hideModal } from '../reducers/modalSlice.js';
-import StatusDisplay from "./StatusDisplay.jsx";
-import mapMatrix from "./../assets/mapMatrix.jsx"
+import mapMatrix from "./../assets/mapMatrix.jsx";
+import GameStatusDisplay from "./GameStatusDisplay.jsx";
 
 const MapBase = ({
   x, y, direction, isNpcMovable, setNpcMovable, player_hp, player_strength,
@@ -96,6 +96,11 @@ const MapBase = ({
       }
     }
   };
+  
+
+
+  
+
 
   const renderTable = () => {
     const table = [];
@@ -141,12 +146,16 @@ const MapBase = ({
 
   return (
     <div className="map-container">
-      <StatusDisplay />
-      <h1 className="map-title">DUCK'S ON FIRE</h1>
-      <table className="map-table">
-        <tbody>{renderTable()}</tbody>
-      </table>
-      <Modal show={showModalState} handleAttack={handleAttack} handleDefend={handleDefend}/>
+      <div className="status">
+        <GameStatusDisplay />
+        <Modal show={showModalState} handleAttack={handleAttack} handleDefend={handleDefend}/>
+      </div>
+      <div className="map">
+        <h1 className="map-title">DUCK'S ON FIRE</h1>
+        <table className="map-table">
+          <tbody>{renderTable()}</tbody>
+        </table>
+      </div>
     </div>
   );
 };
