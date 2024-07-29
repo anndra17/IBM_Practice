@@ -1,4 +1,4 @@
-import mapMatrix from "../assets/mapMatrix";
+import maps from "../assets/maps.js";
 
 // Action types
 const MOVE_UP = "playerController/MOVE_UP";
@@ -6,6 +6,7 @@ const MOVE_DOWN = "playerController/MOVE_DOWN";
 const MOVE_LEFT = "playerController/MOVE_LEFT";
 const MOVE_RIGHT = "playerController/MOVE_RIGHT";
 const SET_NPC_MOVABLE = "playerController/SET_NPC_MOVABLE";
+const SET_CURRENT_MAP = 'playerController/SET_CURRENT_MAP';
 
 // Initial state
 const initialState = {
@@ -14,12 +15,14 @@ const initialState = {
   direction: "UP",
   isNpcMovable: true,
   isAttacking: false, // Added state to track attack status
+  currentMap: 'map1',
 };
 
 // Reducer
 const playerControllerReducer = (state = initialState, action) => {
   let newX = state.x;
   let newY = state.y;
+  const mapMatrix = maps[state.currentMap]; // Use state.currentMap to access the current map
 
   switch (action.type) {
     case MOVE_UP:
@@ -61,6 +64,9 @@ const playerControllerReducer = (state = initialState, action) => {
     case SET_NPC_MOVABLE:
       return { ...state, isNpcMovable: action.payload };
 
+    case SET_CURRENT_MAP:
+      return { ...state, currentMap: action.payload };
+      
     default:
       return state;
   }
@@ -72,5 +78,6 @@ export const moveDown = () => ({ type: MOVE_DOWN });
 export const moveLeft = () => ({ type: MOVE_LEFT });
 export const moveRight = () => ({ type: MOVE_RIGHT });
 export const setNpcMovable = (isMovable) => ({ type: SET_NPC_MOVABLE, payload: isMovable });
+export const setCurrentMap = (currentMap) => ({ type: SET_CURRENT_MAP, payload: currentMap });
 
 export default playerControllerReducer;

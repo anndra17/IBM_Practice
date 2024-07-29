@@ -158,3 +158,25 @@ body {
 .control-button:hover {
   background-color: rgba(255, 255, 255, 1);
 }
+
+.difficulty-div {
+  background-color: rgba(243, 243, 243, 0.818);
+  margin-left: 20vh;
+  margin-top: 7vh;
+  padding: 1vh;
+}
+
+.difficulty-div h1{
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-weight: lighter;
+  color: rgba(8, 7, 7, 0.627);
+}
+
+
+.difficulty-div button{
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-weight: lighter;
+  background-color: rgb(173, 212, 173);
+  border-color: rgba(135, 94, 12, 0.853);
+  margin-left: 1vh;
+}

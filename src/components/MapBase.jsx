@@ -11,16 +11,19 @@ import enemyDuckUpImage from "./../assets/enemy_duck_up.gif";
 import enemyDuckDownImage from "./../assets/enemy_duck_down.gif";
 import enemyDuckLeftImage from "./../assets/enemy_duck_left.gif";
 import enemyDuckRightImage from "./../assets/enemy_duck_right.gif";
-import { setNpcMovable } from "../reducers/playerController";
+import { setNpcMovable, setCurrentMap } from "../reducers/playerController";
 import { moveOpponent } from "../reducers/opponent";
 import { showModal, hideModal } from '../reducers/modalSlice.js';
-import mapMatrix from "./../assets/mapMatrix";
+import maps from "../assets/maps.js";
 import GameStatusDisplay from "./GameStatusDisplay.jsx";
 
 const MapBase = ({
   x, y, direction, isNpcMovable, setNpcMovable, player_hp, player_strength,
-  opponent, moveOpponent, showModal, hideModal, showModalState
+  opponent, moveOpponent, showModal, hideModal, showModalState, currentMap
 }) => {
+
+  const mapMatrix = maps[currentMap]; // Use the currentMap to get the right map
+
   
   // Close modal and allow NPC movement
   const closeModal = () => {
@@ -149,10 +152,34 @@ const MapBase = ({
     );
   };
 
+  const handleDifficultyChange = (difficulty) => {
+    switch (difficulty) {
+      case 'EASY':
+        setCurrentMap('map1');
+        break;
+      case 'MEDIUM':
+        setCurrentMap('map2');
+        break;
+      case 'HARD':
+        setCurrentMap('map3');
+        break;
+      default:
+        setCurrentMap('map1');
+    }
+  };
+
   return (
     <div className="map-container">
       <div className="status">
         <GameStatusDisplay />
+        <div className="difficulty-div">
+          <h1>Choose difficulty</h1>
+          <button onClick={() => handleDifficultyChange('EASY')}>EASY</button>
+          <button onClick={() => handleDifficultyChange('MEDIUM')}>MEDIUM</button>
+          <button onClick={() => handleDifficultyChange('HARD')}>HARD</button>
+        </div>
+        
+
         <Modal show={showModalState} handleAttack={handleAttack} handleDefend={handleDefend}/>
       </div>
       <div className="map">
@@ -172,14 +199,16 @@ const mapStateToProps = (state) => ({
   player_hp: state.player.hp,
   player_strength: state.player.strength,
   opponent: state.opponent,
-  showModalState: state.modal.showModal
+  showModalState: state.modal.showModal,
+  currentMap: state.playerController.currentMap
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setNpcMovable: (movable) => dispatch(setNpcMovable(movable)),
   moveOpponent: (x, y, direction) => dispatch(moveOpponent(x, y, direction)),
   showModal: () => dispatch(showModal()),
-  hideModal: () => dispatch(hideModal())
+  hideModal: () => dispatch(hideModal()),
+  setCurrentMap: (currentMap) => dispatch(setCurrentMap(currentMap))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapBase);
