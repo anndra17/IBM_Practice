@@ -47,8 +47,6 @@ const Modal = ({
           setOpponentStatusColor('lightgreen');
         }
 
-      
-
         attackTimer = setTimeout(() => {
           if (isPlayerTurn) {
             console.log('player turn');

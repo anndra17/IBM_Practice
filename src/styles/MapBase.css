@@ -2,13 +2,12 @@
 
 html,
 body {
-  height: 100%;
   margin: 0;
   padding: 0;
+  background-color: rgba(96, 240, 240, 0.897);
 }
 
 #root {
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,20 +15,20 @@ body {
 
 .map-container {
   display: flex;
-  flex-direction: row; /* Așează elementele în rând, nu în coloană */
-  height: 100vh; /* Asigură-te că ocupă întreaga înălțime a vizualizatorului */
+  height: 50vh; /* Asigură-te că ocupă întreaga înălțime a vizualizatorului */
   padding: 0; /* Elimină padding-ul dacă nu este necesar */
   box-sizing: border-box;
 }
 
 
 .map {
-  flex: 3; /* Ocupă mai mult spațiu în comparație cu statusul */
-  display: flex;
+ /* Ocupă mai mult spațiu în comparație cu statusul */
   flex-direction: column;
   align-items: center; /* Centrare orizontală a mapei */
   justify-content: center; /* Centrare verticală a mapei */
   z-index: 0;
+  margin-left: 10vw;
+  margin-top: 2vh;
 }
 
 .game-status {
@@ -45,8 +44,8 @@ body {
 .game-status-container {
   display: flex;
   flex-direction: column; /* Asigură-te că statusul se aliniază vertical */
-  width: 100%; /* Ocupă întreaga lățime disponibilă */
-  margin-top: 40vh;
+  width: 60%; /* Ocupă întreaga lățime disponibilă */
+  margin-top: 20vh;
   margin-left: 20vh;
   margin-right: 0vh;
   box-sizing: border-box;
@@ -64,7 +63,7 @@ body {
 
 .map-table {
   border-collapse: collapse;
-  margin: 10px auto;
+  margin: 40px;
 }
 
 .map-cell {
@@ -102,7 +101,7 @@ body {
 
 .map-title {
   text-align: left;
-  margin-top: 30vh;
+  margin: 0vh 20vh;
 }
 
 
@@ -178,5 +177,4 @@ body {
   font-weight: lighter;
   background-color: rgb(173, 212, 173);
   border-color: rgba(135, 94, 12, 0.853);
-  margin-left: 1vh;
 }

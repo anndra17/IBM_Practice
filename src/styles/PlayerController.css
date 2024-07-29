@@ -2,9 +2,10 @@
   display: inline-grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20%;
+  height: auto;
   border-radius: 50%;
   margin-right: 55vh;
-  margin-bottom: 20vh;;
+  margin-top: 25vh;
   margin-left: 0; /* Asigură-te că nu este niciun margin pe stânga */
 }
 
