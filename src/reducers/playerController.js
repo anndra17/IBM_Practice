@@ -1,53 +1,76 @@
-// Duck Pattern - grouped reducer, actions and creators in the same file
+import mapMatrix from "../assets/mapMatrix";
 
-// import { START_ATTACK, STOP_ATTACK } from "../actions/attackActions";
-
-// Types (actiuni)
+// Action types
 const MOVE_UP = "playerController/MOVE_UP";
 const MOVE_DOWN = "playerController/MOVE_DOWN";
 const MOVE_LEFT = "playerController/MOVE_LEFT";
 const MOVE_RIGHT = "playerController/MOVE_RIGHT";
 const SET_NPC_MOVABLE = "playerController/SET_NPC_MOVABLE";
 
-
-// Stare initiala
+// Initial state
 const initialState = {
   x: 4,
   y: 4,
-  direction: "UP", 
+  direction: "UP",
   isNpcMovable: true,
   isAttacking: false, // Added state to track attack status
-
 };
 
 // Reducer
 const playerControllerReducer = (state = initialState, action) => {
+  let newX = state.x;
+  let newY = state.y;
+
   switch (action.type) {
     case MOVE_UP:
-      if (!state.isNpcMovable) return state; // Nu permite mișcarea dacă NPC-ul nu este mișcabil
-      return { ...state, y: Math.max(state.y - 1, 1), direction: "UP" };
+      if (state.isNpcMovable) {
+        newY = Math.max(state.y - 1, 1);
+        if (mapMatrix[newY][state.x] !== 1) {
+          return { ...state, y: newY, direction: "UP" };
+        }
+      }
+      return state;
+
     case MOVE_DOWN:
-      if (!state.isNpcMovable) return state; // Nu permite mișcarea dacă NPC-ul nu este mișcabil
-      return { ...state, y: Math.min(state.y + 1, 8), direction: "DOWN" };
+      if (state.isNpcMovable) {
+        newY = Math.min(state.y + 1, 8);
+        if (mapMatrix[newY][state.x] !== 1) {
+          return { ...state, y: newY, direction: "DOWN" };
+        }
+      }
+      return state;
+
     case MOVE_LEFT:
-      if (!state.isNpcMovable) return state; // Nu permite mișcarea dacă NPC-ul nu este mișcabil
-      return { ...state, x: Math.max(state.x - 1, 1), direction: "LEFT" };
+      if (state.isNpcMovable) {
+        newX = Math.max(state.x - 1, 1);
+        if (mapMatrix[state.y][newX] !== 1) {
+          return { ...state, x: newX, direction: "LEFT" };
+        }
+      }
+      return state;
+
     case MOVE_RIGHT:
-      if (!state.isNpcMovable) return state; // Nu permite mișcarea dacă NPC-ul nu este mișcabil
-      return { ...state, x: Math.min(state.x + 1, 8), direction: "RIGHT" };
+      if (state.isNpcMovable) {
+        newX = Math.min(state.x + 1, 8);
+        if (mapMatrix[state.y][newX] !== 1) {
+          return { ...state, x: newX, direction: "RIGHT" };
+        }
+      }
+      return state;
+
     case SET_NPC_MOVABLE:
       return { ...state, isNpcMovable: action.payload };
-   default:
+
+    default:
       return state;
   }
 };
 
-// Action Creators (creatori de acțiuni)
+// Action Creators
 export const moveUp = () => ({ type: MOVE_UP });
 export const moveDown = () => ({ type: MOVE_DOWN });
-export const moveLeft = () => ({ type: MOVE_LEFT});
-export const moveRight = () => ({ type: MOVE_RIGHT});
-export const setNpcMovable = (isMovable) => ({ type: SET_NPC_MOVABLE, payload: isMovable});
-
+export const moveLeft = () => ({ type: MOVE_LEFT });
+export const moveRight = () => ({ type: MOVE_RIGHT });
+export const setNpcMovable = (isMovable) => ({ type: SET_NPC_MOVABLE, payload: isMovable });
 
 export default playerControllerReducer;
