@@ -18,8 +18,8 @@ import maps from "../assets/maps.js";
 import GameStatusDisplay from "./GameStatusDisplay.jsx";
 
 const MapBase = ({
-  x, y, direction, isNpcMovable, setNpcMovable, player_hp, player_strength,
-  opponent, moveOpponent, showModal, hideModal, showModalState, currentMap
+  x, y, direction, isNpcMovable, setNpcMovable, 
+  opponent, moveOpponent, showModal, hideModal, showModalState, currentMap, setCurrentMap
 }) => {
 
   const mapMatrix = maps[currentMap]; // Use the currentMap to get the right map
@@ -153,7 +153,10 @@ const MapBase = ({
   };
 
   const handleDifficultyChange = (difficulty) => {
+      console.log(`Difficulty changed to ${difficulty}`);
+
     switch (difficulty) {
+
       case 'EASY':
         setCurrentMap('map1');
         break;
@@ -167,6 +170,10 @@ const MapBase = ({
         setCurrentMap('map1');
     }
   };
+
+  useEffect(() => {
+    console.log('Current map updated:', currentMap);
+  }, [currentMap]);
 
   return (
     <div className="map-container">

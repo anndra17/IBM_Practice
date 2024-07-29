@@ -64,8 +64,9 @@ const playerControllerReducer = (state = initialState, action) => {
     case SET_NPC_MOVABLE:
       return { ...state, isNpcMovable: action.payload };
 
-    case SET_CURRENT_MAP:
-      return { ...state, currentMap: action.payload };
+      case SET_CURRENT_MAP:
+        console.log(`Reducer received SET_CURRENT_MAP with payload: ${action.payload}`);
+        return { ...state, currentMap: action.payload };
       
     default:
       return state;

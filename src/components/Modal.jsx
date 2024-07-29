@@ -21,7 +21,8 @@ const Modal = ({
   setOpponentStatusColor,
   setTurn,
   currentTurn,
-  opponentStrength
+  opponentStrength,
+  
 }) => {
   const [defendTimeout, setDefendTimeout] = useState(null);
 
