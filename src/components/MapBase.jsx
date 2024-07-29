@@ -14,7 +14,7 @@ import enemyDuckRightImage from "./../assets/enemy_duck_right.gif";
 import { setNpcMovable } from "../reducers/playerController";
 import { moveOpponent } from "../reducers/opponent";
 import { showModal, hideModal } from '../reducers/modalSlice.js';
-import mapMatrix from "./../assets/mapMatrix.jsx";
+import mapMatrix from "./../assets/mapMatrix";
 import GameStatusDisplay from "./GameStatusDisplay.jsx";
 
 const MapBase = ({
@@ -22,9 +22,10 @@ const MapBase = ({
   opponent, moveOpponent, showModal, hideModal, showModalState
 }) => {
   
+  // Close modal and allow NPC movement
   const closeModal = () => {
     hideModal();
-    setNpcMovable(true); // Restores NPC movement
+    setNpcMovable(true); // Allows NPC to move again
   };
 
   const handleAttack = () => {
@@ -35,6 +36,7 @@ const MapBase = ({
     closeModal(); // Close modal on defend
   };
 
+  // Movement logic for NPC
   useEffect(() => {
     const possibleMoves = [
       { x: 0, y: -1, direction: "UP" },
@@ -50,7 +52,8 @@ const MapBase = ({
       const newX = opponent.x + currentMove.x;
       const newY = opponent.y + currentMove.y;
 
-      if (newX >= 1 && newX <= 8 && newY >= 1 && newY <= 8) {
+      // Ensure new position is within bounds and not a solid block
+      if (newX >= 1 && newX <= 8 && newY >= 1 && newY <= 8 && mapMatrix[newY][newX] === 0) {
         moveOpponent(newX, newY, currentMove.direction);
       }
     }, 1000);
@@ -60,6 +63,7 @@ const MapBase = ({
     };
   }, [isNpcMovable, opponent, moveOpponent]);
 
+  // Check for NPC and player collision
   useEffect(() => {
     if (x === opponent.x && y === opponent.y) {
       showModal(); // Show modal when player meets opponent
@@ -67,6 +71,7 @@ const MapBase = ({
     }
   }, [x, y, opponent, setNpcMovable, showModal]);
 
+  // Function to get the appropriate duck image
   const getDuckImage = (direction, isPlayer) => {
     if (isPlayer) {
       switch (direction) {
@@ -96,52 +101,52 @@ const MapBase = ({
       }
     }
   };
-  
 
-
-  
-
-
+  // Function to render the game map
   const renderTable = () => {
-    const table = [];
-    for (let row = 0; row < 10; row++) {
-      const cells = [];
-      for (let col = 0; col < 10; col++) {
-        const isBorderCell = row === 0 || row === 9 || col === 0 || col === 9;
-        let className = "map-cell";
+    return (
+      <table className="map-table">
+        <tbody>
+          {mapMatrix.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {row.map((cell, colIndex) => {
+                const isBorderCell = cell === 1;
+                let className = "map-cell";
 
-        if (col === x && row === y) {
-          className = "duck-cell";
-        } else if (col === opponent.x && row === opponent.y) {
-          className = "opponent-cell";
-        }
+                if (colIndex === x && rowIndex === y) {
+                  className = "duck-cell";
+                } else if (colIndex === opponent.x && rowIndex === opponent.y) {
+                  className = "opponent-cell";
+                }
 
-        cells.push(
-          <td
-            key={`${row}-${col}`}
-            className={className}
-            style={isBorderCell ? { backgroundImage: `url(${marginImage})`, backgroundSize: 'cover' } : {}}
-          >
-            {className === "duck-cell" && (
-              <img
-                src={getDuckImage(direction, true)}
-                alt="Duck"
-                className="duck-image"
-              />
-            )}
-            {className === "opponent-cell" && (
-              <img
-                src={getDuckImage(opponent.direction, false)}
-                alt="Opponent Duck"
-                className="duck-image"
-              />
-            )}
-          </td>
-        );
-      }
-      table.push(<tr key={row}>{cells}</tr>);
-    }
-    return table;
+                return (
+                  <td
+                    key={`${rowIndex}-${colIndex}`}
+                    className={className}
+                    style={isBorderCell ? { backgroundImage: `url(${marginImage})`, backgroundSize: 'cover' } : {}}
+                  >
+                    {className === "duck-cell" && (
+                      <img
+                        src={getDuckImage(direction, true)}
+                        alt="Duck"
+                        className="duck-image"
+                      />
+                    )}
+                    {className === "opponent-cell" && (
+                      <img
+                        src={getDuckImage(opponent.direction, false)}
+                        alt="Opponent Duck"
+                        className="duck-image"
+                      />
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
   };
 
   return (
@@ -152,21 +157,20 @@ const MapBase = ({
       </div>
       <div className="map">
         <h1 className="map-title">DUCK'S ON FIRE</h1>
-        <table className="map-table">
-          <tbody>{renderTable()}</tbody>
-        </table>
+        {renderTable()}
       </div>
     </div>
   );
 };
 
+// Map state and dispatch to props
 const mapStateToProps = (state) => ({
   x: state.playerController.x,
   y: state.playerController.y,
-  direction: state.direction,
-  isNpcMovable: state.isNpcMovable,
-  player_hp: state.player_hp,
-  player_strength: state.player_strength,
+  direction: state.playerController.direction,
+  isNpcMovable: state.playerController.isNpcMovable,
+  player_hp: state.player.hp,
+  player_strength: state.player.strength,
   opponent: state.opponent,
   showModalState: state.modal.showModal
 });
