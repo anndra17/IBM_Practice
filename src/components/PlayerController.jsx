@@ -10,10 +10,6 @@ const PlayerController = ({
   decrementX,
   incrementY,
   decrementY,
-  player_hp,
-  player_strength,
-  opponent_hp,
-  opponent_strength,
   isNpcMovable
 }) => {
   useEffect(() => {
@@ -62,10 +58,6 @@ const PlayerController = ({
 const mapStateToProps = (state) => ({
   x: state.playerController.x,
   y: state.playerController.y,
-  player_hp: state.playerController.player_hp,
-  player_strength: state.playerController.player_strength,
-  opponent_hp: state.opponent.hp,
-  opponent_strength: state.opponent.strength,
   isNpcMovable: state.playerController.isNpcMovable
 });
 

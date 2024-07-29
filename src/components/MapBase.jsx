@@ -163,10 +163,10 @@ const MapBase = ({
 const mapStateToProps = (state) => ({
   x: state.playerController.x,
   y: state.playerController.y,
-  direction: state.playerController.direction,
-  isNpcMovable: state.playerController.isNpcMovable,
-  player_hp: state.playerController.player_hp,
-  player_strength: state.playerController.player_strength,
+  direction: state.direction,
+  isNpcMovable: state.isNpcMovable,
+  player_hp: state.player_hp,
+  player_strength: state.player_strength,
   opponent: state.opponent,
   showModalState: state.modal.showModal
 });

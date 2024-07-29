@@ -46,7 +46,7 @@ body {
   display: flex;
   flex-direction: column; /* Asigură-te că statusul se aliniază vertical */
   width: 100%; /* Ocupă întreaga lățime disponibilă */
-  margin-top: 25vh;
+  margin-top: 40vh;
   margin-left: 20vh;
   margin-right: 0vh;
   box-sizing: border-box;
@@ -103,7 +103,6 @@ body {
 .map-title {
   text-align: left;
   margin-top: 30vh;
-
 }
 
 
@@ -119,7 +118,7 @@ body {
   }
 
   50% {
-    color: yellow;
+    color: rgb(98, 98, 54);
     transform: scale(1.2);
   }
 
@@ -136,7 +135,7 @@ body {
 
 .map-title {
   animation: flame 2s infinite;
-  font-size: 20px;
+  font-size: 30px;
   font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 

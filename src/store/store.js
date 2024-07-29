@@ -5,11 +5,13 @@ import playerControllerReducer from '../reducers/playerController';
 import opponentReducer from '../reducers/opponent';
 import modalReducer from '../reducers/modalSlice';
 import attackReducer from '../reducers/attack';
+import playerReducer from '../reducers/player';
 
 
 // Combinare reduceri
 const rootReducer = combineReducers({
   playerController: playerControllerReducer,
+  player: playerReducer,
   opponent: opponentReducer,
   modal: modalReducer,
   attack: attackReducer,

@@ -8,16 +8,12 @@ const MOVE_DOWN = "playerController/MOVE_DOWN";
 const MOVE_LEFT = "playerController/MOVE_LEFT";
 const MOVE_RIGHT = "playerController/MOVE_RIGHT";
 const SET_NPC_MOVABLE = "playerController/SET_NPC_MOVABLE";
-const SET_PLAYER_HP = "playerController/SET_PLAYER_HP";
-const SET_PLAYER_STRENGTH = "playerController/SET_PLAYER_CONTROLLER";
 
 
 // Stare initiala
 const initialState = {
   x: 4,
   y: 4,
-  player_hp: 3,
-  player_strength: 10,
   direction: "UP", 
   isNpcMovable: true,
   isAttacking: false, // Added state to track attack status
@@ -41,11 +37,7 @@ const playerControllerReducer = (state = initialState, action) => {
       return { ...state, x: Math.min(state.x + 1, 8), direction: "RIGHT" };
     case SET_NPC_MOVABLE:
       return { ...state, isNpcMovable: action.payload };
-    case SET_PLAYER_HP:
-      return {...state, player_hp: action.payload};
-    case SET_PLAYER_STRENGTH:
-      return {...state, player_strength: action.payload};  
-    default:
+   default:
       return state;
   }
 };
@@ -56,7 +48,6 @@ export const moveDown = () => ({ type: MOVE_DOWN });
 export const moveLeft = () => ({ type: MOVE_LEFT});
 export const moveRight = () => ({ type: MOVE_RIGHT});
 export const setNpcMovable = (isMovable) => ({ type: SET_NPC_MOVABLE, payload: isMovable});
-export const setPlayerHp = (hp) => ({ type: SET_PLAYER_HP, payload: hp });
-export const setPlayerStrength = (strength) => ({ type: SET_PLAYER_STRENGTH, payload: strength });
+
 
 export default playerControllerReducer;
